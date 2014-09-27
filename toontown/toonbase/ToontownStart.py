@@ -3,7 +3,7 @@ import __builtin__
 
 print 'ToontownStart: Starting Old Toontown...'
 
-loadPrcFile('config/config_dev.prc')
+loadPrcFile('config/config.prc')
 
 class game:
     name = 'toontown'
@@ -65,15 +65,15 @@ import TTLocalizer
 from otp.otpbase import OTPGlobals
 OTPGlobals.setDefaultProductPrefix(TTLocalizer.ProductPrefix)
 if base.musicManagerIsValid:
-    music = base.musicManager.getSound('phase_3/audio/bgm/tt_theme.mid')
+    music = base.musicManager.getSound('phase_3/audio/bgm/tt_theme.ogg')
     if music:
         music.setLoop(1)
-        music.setVolume(0.90000000000000002)
+        music.setVolume(0.9)
         music.play()
     
     print 'ToontownStart: Loading default gui sounds'
-    DirectGuiGlobals.setDefaultRolloverSound(base.loadSfx('phase_3/audio/sfx/GUI_rollover.mp3'))
-    DirectGuiGlobals.setDefaultClickSound(base.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.mp3'))
+    DirectGuiGlobals.setDefaultRolloverSound(base.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
+    DirectGuiGlobals.setDefaultClickSound(base.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 else:
     music = None
 import ToontownLoader
@@ -108,15 +108,12 @@ del version
 base.loader = base.loader
 __builtin__.loader = base.loader
 autoRun = ConfigVariableBool('toontown-auto-run', 1)
-if autoRun and launcher.isDummy():
-    if not Thread.isTrueThreads() or __name__ == '__main__':
-        try:
-            run()
-        except SystemExit:
-            raise 
-        except:
-            from direct.showbase import PythonUtil
-            print PythonUtil.describeException()
-            raise 
-        
-
+if autoRun:
+    try:
+        run()
+    except SystemExit:
+        raise
+    except:
+        from direct.showbase import PythonUtil
+        print PythonUtil.describeException()
+        raise
