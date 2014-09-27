@@ -10451,13 +10451,16 @@ def getRecipeBeanText(beanTuple):
     retval = ''
     if not beanTuple:
         return retval
+    
     allTheSame = True
     for index in range(len(beanTuple)):
         if index + 1 < len(beanTuple):
             if not beanTuple[index] == beanTuple[index + 1]:
                 allTheSame = False
                 break
-
+            
+        beanTuple[index] == beanTuple[index + 1]
+    
     if allTheSame:
         if len(beanTuple) > 1:
             retval = '%d %s jellybeans' % (len(beanTuple), BeanColorWords[beanTuple[0]])
@@ -10469,11 +10472,12 @@ def getRecipeBeanText(beanTuple):
         for index in range(maxBeans):
             if index == maxBeans - 1:
                 retval += ' and %s jellybean' % BeanColorWords[beanTuple[index]]
-            elif index == 0:
+                continue
+            if index == 0:
                 retval += ' %s' % BeanColorWords[beanTuple[index]]
-            else:
-                retval += ', %s' % BeanColorWords[beanTuple[index]]
-
+                continue
+            retval += ', %s' % BeanColorWords[beanTuple[index]]
+        
     return retval
 
 GardenTextMagicBeans = 'Magic Beans'
